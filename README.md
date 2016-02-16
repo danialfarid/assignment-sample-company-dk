@@ -1,1 +1,0 @@
-# assignment-sample-company-dk
