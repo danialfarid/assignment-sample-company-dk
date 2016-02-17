@@ -8,10 +8,6 @@ public class Owner {
     private Long id;
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "id", nullable = false)
-    private Company company;
-
     public Long getId() {
         return id;
     }
@@ -26,13 +22,5 @@ public class Owner {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
     }
 }
