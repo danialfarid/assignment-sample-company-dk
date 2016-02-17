@@ -6,6 +6,7 @@ import javax.persistence.Persistence;
 import java.util.List;
 import java.util.function.Function;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class DB {
     private static Logger LOG = Logger.getLogger(DB.class.getName());
@@ -26,7 +27,9 @@ public class DB {
 
     public List<CompanyBase> listCompanies() {
         return withEM(em -> {
-            List<CompanyBase> list = em.createQuery("select NEW CompanyBase(c.id, c.name) from Company as c", CompanyBase.class).getResultList();
+            List<CompanyBase> list = em.createQuery("select NEW Company(c.id, c.name) from Company as c", Company.class)
+                    .getResultList().stream().map(c -> new CompanyBase(c.getId(), c.getName()))
+                    .collect(Collectors.toList());
             LOG.info("list companies: " + list);
             return list;
         });
