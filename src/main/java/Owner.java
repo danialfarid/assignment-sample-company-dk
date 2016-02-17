@@ -3,6 +3,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "owner")
 public class Owner {
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
