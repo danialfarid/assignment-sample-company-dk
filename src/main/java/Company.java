@@ -21,11 +21,11 @@ public class Company extends CompanyBase implements Serializable {
     public Company() {
     }
 
-    public Company(Long id) {
+    public Company(int id) {
         setId(id);
     }
 
-    public Company(Long id, String name) {
+    public Company(int id, String name) {
         super(id, name);
     }
 
