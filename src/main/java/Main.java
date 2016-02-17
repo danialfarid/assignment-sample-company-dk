@@ -84,7 +84,6 @@ public class Main {
         });
         exception(Exception.class, (e, req, res) -> {
             res.status(400);
-            LOG.throwing("", "", e);
             LOG.log(Level.SEVERE, "", e);
             res.body(toJson(new ResponseError(e.getClass().getName() + e.getMessage() + e.getCause())));
         });
