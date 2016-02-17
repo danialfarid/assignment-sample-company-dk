@@ -7,7 +7,7 @@ public class Department {
     @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
     private String name;
-    @OneToMany(mappedBy="employee")
+    @OneToMany(mappedBy="department")
     private Collection<Employee> employees;
 
     public int getId() {
