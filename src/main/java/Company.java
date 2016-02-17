@@ -14,7 +14,7 @@ public class Company {
     private String email;
     private String phone;
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "id", cascade = CascadeType.PERSIST)
     private List<Owner> owners;
 
     public Company() {

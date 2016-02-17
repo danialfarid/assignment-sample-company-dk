@@ -43,9 +43,14 @@ public class DB {
     private <T> T withEM(Function<EntityManager, T> fn) {
         EntityManager em = factory.createEntityManager();
         try {
+            em.getTransaction().begin();
             return fn.apply(em);
         } finally {
-            em.close();
+            try {
+                em.getTransaction().commit();
+            } finally {
+                em.close();
+            }
         }
     }
 
