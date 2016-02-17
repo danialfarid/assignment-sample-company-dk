@@ -1,14 +1,13 @@
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 public class CompanyName implements Serializable {
-    private int id;
+    private Long id;
     private String name;
 
     public CompanyName() {
     }
 
-    public CompanyName(int id, String name) {
+    public CompanyName(Long id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -21,11 +20,11 @@ public class CompanyName implements Serializable {
         this.name = name;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 }

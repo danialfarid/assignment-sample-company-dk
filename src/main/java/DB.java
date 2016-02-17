@@ -14,13 +14,11 @@ public class DB {
     private static final DB INSTANCE = new DB();
     EntityManagerFactory factory = Persistence.createEntityManagerFactory("persistence");
 
-    public int createCompany(@Valid Company company) {
+    public Long createCompany(@Valid Company company) {
         return withTransaction(em -> {
             try {
                 em.persist(company);
-                for (Owner owner : company.getOwners()) {
-                    em.persist(owner);
-                }
+                company.getOwners().forEach(em::persist);
             } catch (Throwable t) {
                 LOG.throwing("", "", t);
                 LOG.info(t.getMessage());

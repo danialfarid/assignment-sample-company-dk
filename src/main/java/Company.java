@@ -7,7 +7,7 @@ import java.util.Collection;
 public class Company implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
     @NotNull
     private String name;
 
@@ -92,11 +92,11 @@ public class Company implements Serializable {
                 '}';
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
