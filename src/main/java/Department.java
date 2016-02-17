@@ -3,11 +3,8 @@ import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
 @Entity
-public class Department {
+public class Department extends CompanyBase {
 
-    @Id @GeneratedValue(strategy=GenerationType.AUTO)
-    private int id;
-    private String name;
     @OneToMany(mappedBy="department")
     private Collection<Employee> employees;
 
@@ -19,22 +16,6 @@ public class Department {
     private String country;
     private String email;
     private String phone;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String deptName) {
-        this.name = deptName;
-    }
 
     public void setEmployees(Collection<Employee> employees) {
         this.employees = employees;

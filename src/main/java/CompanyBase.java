@@ -6,9 +6,8 @@ import java.util.List;
 @Entity
 @Table(name="company")
 public class CompanyBase implements Serializable {
-    @Id
-    @GeneratedValue()
-    private Long id;
+    @Id @GeneratedValue(strategy=GenerationType.AUTO)
+    private int id;
     @NotNull
     private String name;
 
@@ -18,7 +17,7 @@ public class CompanyBase implements Serializable {
     public CompanyBase() {
     }
 
-    public CompanyBase(Long id, String name) {
+    public CompanyBase(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -31,11 +30,11 @@ public class CompanyBase implements Serializable {
         this.name = name;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 }
