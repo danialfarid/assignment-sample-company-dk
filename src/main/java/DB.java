@@ -18,7 +18,7 @@ public class DB {
 
     public List<Company> listCompanies() {
         EntityManager em = factory.createEntityManager();
-        List<Company> list = em.createNamedQuery("select c.name, c.id from Company as c", Company.class).getResultList();
+        List<Company> list = em.createQuery("select c.name, c.id from Company as c", Company.class).getResultList();
         em.close();
         return list;
     }
