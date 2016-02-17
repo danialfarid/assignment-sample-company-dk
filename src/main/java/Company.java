@@ -26,6 +26,14 @@ public class Company implements Serializable {
     private String email;
     private String phone;
 
+    public Company() {
+    }
+
+    public Company(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public void setOwners(Collection<Owner> owners) {
         this.owners = owners;
     }
