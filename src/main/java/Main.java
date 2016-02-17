@@ -38,6 +38,9 @@ public class Main {
             ObjectMapper mapper = new ObjectMapper();
             Company company = mapper.readValue(req.body(), Company.class);
             LOG.info("creating company: " + company);
+            if (company.getOwners() == null || company.getOwners().isEmpty()) {
+                throw new IllegalArgumentException("At least one company owner is required.");
+            }
             return new IdResponse(DB.get().createCompany(company));
         }, Main::toJson);
 

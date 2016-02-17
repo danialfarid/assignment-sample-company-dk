@@ -20,6 +20,7 @@ public class DB {
     public Long createCompany(@Valid Company company) {
         return withTransaction(em -> {
             try {
+                company.getOwners().forEach(o -> o.setCompany(company));
                 em.persist(company);
             } catch (Throwable t) {
                 LOG.throwing("", "", t);
