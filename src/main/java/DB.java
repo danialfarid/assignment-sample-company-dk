@@ -12,15 +12,15 @@ public class DB {
     private static final DB INSTANCE = new DB();
     EntityManagerFactory factory = Persistence.createEntityManagerFactory("persistence");
 
-    public void createCompany(Company company) {
-        withEM(em -> {
+    public Long createCompany(Company company) {
+        return withEM(em -> {
             try {
                 em.persist(company);
             } catch (Throwable t) {
                 LOG.throwing("", "", t);
                 LOG.info(t.getMessage());
             }
-            return null;
+            return company.getId();
         });
     }
 

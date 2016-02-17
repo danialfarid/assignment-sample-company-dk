@@ -36,8 +36,7 @@ public class Main {
             ObjectMapper mapper = new ObjectMapper();
             Company company = mapper.readValue(req.body(), Company.class);
             LOG.info("creating company: " + company);
-            DB.get().createCompany(company);
-            return null;
+            return new IdResponse(DB.get().createCompany(company));
         });
 
         get("/company", (req, res) -> {
