@@ -1,7 +1,4 @@
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
@@ -18,7 +15,7 @@ public class Company extends CompanyBase implements Serializable {
     private String email;
     private String phone;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "id", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<Owner> owners;
 
     public Company() {

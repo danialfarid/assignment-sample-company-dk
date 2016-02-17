@@ -80,7 +80,7 @@ public class Main {
         });
         exception(Exception.class, (e, req, res) -> {
             res.status(400);
-            res.body(toJson(new ResponseError(e)));
+            res.body(toJson(new ResponseError(e.getClass().getName() + e.getMessage())));
         });
 
         get("/db", (req, res) -> {
