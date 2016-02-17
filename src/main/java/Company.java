@@ -5,7 +5,7 @@ import java.util.Collection;
 @Entity
 public class Company extends CompanyBase {
 
-    @OneToMany(mappedBy="department")
+    @OneToMany(mappedBy="company")
     private Collection<Owner> owners;
 
     @NotNull
