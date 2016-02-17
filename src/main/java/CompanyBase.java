@@ -7,7 +7,7 @@ import java.util.List;
 @Table(name="company")
 public class CompanyBase implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue()
     private Long id;
     @NotNull
     private String name;

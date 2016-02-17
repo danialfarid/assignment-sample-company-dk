@@ -6,7 +6,7 @@ import java.io.Serializable;
 @Table(name = "owner")
 public class Owner implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue()
     private Long id;
     @NotNull
     private String name;
