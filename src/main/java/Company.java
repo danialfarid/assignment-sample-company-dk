@@ -1,3 +1,5 @@
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -16,6 +18,7 @@ public class Company extends CompanyBase implements Serializable {
     private String phone;
 
     @OneToMany(mappedBy = "id", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @NotEmpty
     private List<Owner> owners;
 
     public Company() {
