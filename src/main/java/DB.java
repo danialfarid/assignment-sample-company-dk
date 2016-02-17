@@ -26,7 +26,9 @@ public class DB {
 
     public List<Company> listCompanies() {
         return withEM(em -> {
-            return em.createQuery("select NEW Company(c.id, c.name) from Company as c", Company.class).getResultList();
+            List<Company> list = em.createQuery("select NEW Company(c.id, c.name) from Company as c", Company.class).getResultList();
+            LOG.info("list companies: " + list);
+            return list;
         });
     }
 

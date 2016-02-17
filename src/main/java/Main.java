@@ -37,11 +37,11 @@ public class Main {
             Company company = mapper.readValue(req.body(), Company.class);
             LOG.info("creating company: " + company);
             return new IdResponse(DB.get().createCompany(company));
-        });
+        }, Main::toJson);
 
         get("/company", (req, res) -> {
             return DB.get().listCompanies();
-        }, obj -> toJson(obj));
+        }, Main::toJson);
 
         get("/", (request, response) -> {
             Map<String, Object> attributes = new HashMap<>();
