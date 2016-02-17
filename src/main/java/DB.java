@@ -45,13 +45,15 @@ public class DB {
             try {
                 em.getTransaction().begin();
                 return fn.apply(em);
-            } catch (Exception e) {
-                LOG.info("((*****************************");
-                LOG.info(e.getClass() + e.getMessage());
-                throw e;
             } finally {
                 if (em.getTransaction().isActive()) {
-                    em.getTransaction().commit();
+                    try {
+                        em.getTransaction().commit();
+                    }  catch (Exception e) {
+                        LOG.info("((*****************************");
+                        LOG.info(e.getClass() + e.getMessage() + e.getCause());
+                        throw e;
+                    }
                 }
             }
         });
