@@ -2,7 +2,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="company")
+@Table(name = "company")
 public class Company extends CompanyBase {
     private String address;
     private String city;
@@ -14,6 +14,14 @@ public class Company extends CompanyBase {
     private List<Owner> owners;
 
     public Company() {
+    }
+
+    public Company(Long id) {
+        setId(id);
+    }
+
+    public Company(Long id, String name) {
+        super(id, name);
     }
 
     public String getAddress() {
@@ -67,7 +75,7 @@ public class Company extends CompanyBase {
     @Override
     public String toString() {
         return "Company{" +
-                "id=" + getId()+
+                "id=" + getId() +
                 ", name='" + getName() + '\'' +
                 ", address='" + address + '\'' +
                 ", city='" + city + '\'' +

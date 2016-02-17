@@ -36,11 +36,9 @@ public class DB {
     }
 
     public Company getCompany(Long id) {
-//        Session session = HibernateUtil.getSession();
-//        Query query = session.createQuery("from Company as c where c.id=" + id);
-//        List<Company> list = query.list();
-//        return list.size() > 0 ? list.get(0) : null;
-        return null;
+        return withEM(em -> {
+            return em.find(Company.class, new Company(id));
+        });
     }
 
     private <T> T withTransaction(Function<EntityManager, T> fn) {
