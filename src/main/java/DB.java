@@ -17,7 +17,7 @@ public class DB {
     private static final DB INSTANCE = new DB();
     EntityManagerFactory factory = Persistence.createEntityManagerFactory("persistence");
 
-    public Long createCompany(@Valid Company company) {
+    public int createCompany(@Valid Company company) {
         return withTransaction(em -> {
             try {
                 em.persist(company);
