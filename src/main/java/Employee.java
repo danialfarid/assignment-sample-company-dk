@@ -1,6 +1,5 @@
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 public class Employee {
@@ -9,9 +8,6 @@ public class Employee {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private String name;
-    private String surname;
-    private String title;
-    private Date created;
     @ManyToOne
     private Department department;
 
@@ -29,29 +25,7 @@ public class Employee {
         this.name = name;
     }
 
-    public String getSurname() {
-        return surname;
-    }
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Date getCreated() {
-        return created;
-    }
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
     public Department getDepartment() {
-
         return department;
     }
 
@@ -61,7 +35,6 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Employee [id=" + id + ", name=" + name + ", surname=" + surname
-                + ", title=" + title + "]";
+        return "Employee [id=" + id + ", name=" + name + "]";
     }
 }
