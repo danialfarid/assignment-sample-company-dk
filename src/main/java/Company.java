@@ -14,7 +14,7 @@ public class Company {
     private String email;
     private String phone;
 
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "id")
     private List<Owner> owners;
 
     public String getName() {
