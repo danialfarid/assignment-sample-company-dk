@@ -41,9 +41,15 @@ public class Main {
 
         Department department1 = new Department();
         department1.setName("Q/A");
+        department1.setCity("a");
+        department1.setCountry("a");
+        department1.setAddress("a");
 
         Department department2 = new Department();
         department2.setName("HR");
+        department2.setCity("a");
+        department2.setCountry("a");
+        department2.setAddress("a");
 
         Employee employee1 = new Employee();
         employee1.setName("Jack");
