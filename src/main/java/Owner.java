@@ -11,8 +11,8 @@ public class Owner implements Serializable {
     @NotNull
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "companyId")
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="COMPANY_ID")
     private Company company;
 
     public Long getId() {
