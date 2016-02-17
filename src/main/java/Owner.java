@@ -9,7 +9,7 @@ public class Owner {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "STOCK_ID", nullable = false)
+    @JoinColumn(name = "owner", nullable = false)
     private Company company;
 
     public Long getId() {
