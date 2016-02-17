@@ -47,7 +47,9 @@ public class DB {
                 em.getTransaction().begin();
                 return fn.apply(em);
             } finally {
-                em.getTransaction().commit();
+                if (em.getTransaction().isActive()) {
+                    em.getTransaction().commit();
+                }
             }
         });
     }
@@ -57,7 +59,9 @@ public class DB {
         try {
             return fn.apply(em);
         } finally {
-            em.close();
+            if (em.isOpen()) {
+                em.close();
+            }
         }
     }
 

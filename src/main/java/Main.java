@@ -3,6 +3,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 
+import javax.validation.ConstraintViolationException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -65,6 +66,10 @@ public class Main {
             res.type("application/json");
         });
         exception(IllegalArgumentException.class, (e, req, res) -> {
+            res.status(400);
+            res.body(toJson(new ResponseError(e)));
+        });
+        exception(ConstraintViolationException.class, (e, req, res) -> {
             res.status(400);
             res.body(toJson(new ResponseError(e)));
         });
