@@ -3,11 +3,7 @@ import java.util.List;
 
 @Entity
 @Table(name="company")
-public class Company {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
+public class Company extends CompanyBase {
     private String address;
     private String city;
     private String country;
@@ -18,19 +14,6 @@ public class Company {
     private List<Owner> owners;
 
     public Company() {
-    }
-
-    public Company(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getAddress() {
@@ -81,19 +64,11 @@ public class Company {
         this.owners = owners;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     @Override
     public String toString() {
         return "Company{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "id=" + getId()+
+                ", name='" + getName() + '\'' +
                 ", address='" + address + '\'' +
                 ", city='" + city + '\'' +
                 ", country='" + country + '\'' +
