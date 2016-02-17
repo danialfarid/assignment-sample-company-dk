@@ -1,7 +1,6 @@
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Table(name="company")
@@ -10,9 +9,6 @@ public class CompanyBase implements Serializable {
     private int id;
     @NotNull
     private String name;
-
-    @OneToMany(mappedBy = "id", cascade = CascadeType.PERSIST)
-    private List<Owner> owners;
 
     public CompanyBase() {
     }
