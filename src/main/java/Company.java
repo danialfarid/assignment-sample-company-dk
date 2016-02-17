@@ -17,6 +17,9 @@ public class Company {
     @OneToMany(mappedBy = "id")
     private List<Owner> owners;
 
+    public Company() {
+    }
+
     public Company(Long id, String name) {
         this.id = id;
         this.name = name;
