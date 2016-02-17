@@ -1,3 +1,5 @@
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -12,6 +14,7 @@ public class Company implements Serializable {
     private String name;
 
     @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
+    @NotEmpty
     private Collection<Owner> owners;
 
     @NotNull
