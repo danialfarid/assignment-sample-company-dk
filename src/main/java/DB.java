@@ -14,11 +14,11 @@ public class DB {
     private static final DB INSTANCE = new DB();
     EntityManagerFactory factory = Persistence.createEntityManagerFactory("persistence");
 
-    public int createCompany(@Valid CompanyOld company) {
+    public int createCompany(@Valid Company company) {
         return withTransaction(em -> {
             try {
                 em.persist(company);
-                for (OwnerOld owner : company.getOwners()) {
+                for (Owner owner : company.getOwners()) {
                     em.persist(owner);
                 }
             } catch (Throwable t) {
@@ -31,7 +31,7 @@ public class DB {
 
     public List<CompanyBase> listCompanies() {
         return withEM(em -> {
-            List<CompanyBase> list = em.createQuery("select NEW CompanyOld(c.id, c.name) from CompanyOld as c", CompanyOld.class)
+            List<CompanyBase> list = em.createQuery("select NEW Company(c.id, c.name) from Company as c", Company.class)
                     .getResultList().stream().map(c -> new CompanyBase(c.getId(), c.getName()))
                     .collect(Collectors.toList());
             LOG.info("list companies: " + list);
@@ -39,8 +39,8 @@ public class DB {
         });
     }
 
-    public CompanyOld getCompany(Long id) {
-        return withEM(em -> em.find(CompanyOld.class, id));
+    public Company getCompany(Long id) {
+        return withEM(em -> em.find(Company.class, id));
     }
 
     private <T> T withTransaction(Function<EntityManager, T> fn) {
