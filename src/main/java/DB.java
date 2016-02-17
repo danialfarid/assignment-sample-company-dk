@@ -24,9 +24,9 @@ public class DB {
         });
     }
 
-    public List<Company> listCompanies() {
+    public List<CompanyBase> listCompanies() {
         return withEM(em -> {
-            List<Company> list = em.createQuery("select NEW CompanyBase(c.id, c.name) from Company as c", CompanyBase.class).getResultList();
+            List<CompanyBase> list = em.createQuery("select NEW CompanyBase(c.id, c.name) from Company as c", CompanyBase.class).getResultList();
             LOG.info("list companies: " + list);
             return list;
         });
