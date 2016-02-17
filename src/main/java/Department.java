@@ -74,7 +74,7 @@ public class Department extends CompanyBase {
 
     @Override
     public String toString() {
-        return "Department [employees=" + employees + ", id=" + id + ", name="
-                + name + "]";
+        return "Department [employees=" + employees + ", id=" + getId() + ", name="
+                + getName()+ "]";
     }
 }
