@@ -1,17 +1,14 @@
-import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-public class CompanyBase implements Serializable {
-    @Id @GeneratedValue(strategy=GenerationType.AUTO)
+public class CompanyName implements Serializable {
     private int id;
-    @NotNull
     private String name;
 
-    public CompanyBase() {
+    public CompanyName() {
     }
 
-    public CompanyBase(int id, String name) {
+    public CompanyName(int id, String name) {
         this.id = id;
         this.name = name;
     }

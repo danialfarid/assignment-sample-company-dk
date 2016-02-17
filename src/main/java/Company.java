@@ -1,11 +1,17 @@
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
-public class Company extends CompanyBase {
+public class Company implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+    @NotNull
+    private String name;
 
-    @OneToMany(mappedBy="company")
+    @OneToMany(mappedBy = "company")
     private Collection<Owner> owners;
 
     @NotNull
@@ -74,7 +80,31 @@ public class Company extends CompanyBase {
 
     @Override
     public String toString() {
-        return "Department [employees=" + owners + ", id=" + getId() + ", name="
-                + getName()+ "]";
+        return "Company{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", owners=" + owners +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

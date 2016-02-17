@@ -29,10 +29,10 @@ public class DB {
         });
     }
 
-    public List<CompanyBase> listCompanies() {
+    public List<CompanyName> listCompanies() {
         return withEM(em -> {
-            List<CompanyBase> list = em.createQuery("select NEW Company(c.id, c.name) from Company as c", Company.class)
-                    .getResultList().stream().map(c -> new CompanyBase(c.getId(), c.getName()))
+            List<CompanyName> list = em.createQuery("select NEW Company(c.id, c.name) from Company as c", Company.class)
+                    .getResultList().stream().map(c -> new CompanyName(c.getId(), c.getName()))
                     .collect(Collectors.toList());
             LOG.info("list companies: " + list);
             return list;
