@@ -52,8 +52,9 @@ public class DB {
                         em.getTransaction().commit();
                     }  catch (Exception e) {
                         LOG.info("((*****************************");
-                        LOG.info(e.getClass() + e.getMessage() + e.getCause());
+                        LOG.info(e + e.getMessage() + e.getCause());
                         throw e;
+
                     }
                 }
             }
