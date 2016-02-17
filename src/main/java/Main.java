@@ -3,9 +3,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
 import java.sql.Connection;
@@ -33,67 +30,19 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence");
-
-        EntityManager em = emf.createEntityManager();
-
-        em.getTransaction().begin();
-
-        Company company1 = new Company();
-        company1.setName("Q/A");
-        company1.setCity("a");
-        company1.setCountry("a");
-        company1.setAddress("a");
-
-        Company company2 = new Company();
-        company2.setName("HR");
-        company2.setCity("a");
-        company2.setCountry("a");
-        company2.setAddress("a");
-
-        Owner owner1 = new Owner();
-        owner1.setName("Jack");
-        owner1.setCompany(company1);
-
-        Owner owner2 = new Owner();
-        owner2.setName("Mary");
-        owner2.setCompany(company2);
-
-        em.persist(company1);
-        em.persist(company2);
-        em.persist(owner1);
-        em.persist(owner2);
-
-        long employeeId1 = owner1.getId();
-        long employeeId2 = owner2.getId();
-
-        em.getTransaction().commit();
-
-        em.getTransaction().begin();
-
-        Owner dbOwner1 =em.find(Owner.class, employeeId1);
-        System.out.println("dbEmployee " + dbOwner1);
-
-        Owner dbOwner2 =em.find(Owner.class, employeeId2);
-        System.out.println("dbEmployee " + dbOwner2);
-
-        em.getTransaction().commit();
-
-        em.close();
-        emf.close();
-
         port(Integer.valueOf(System.getenv("PORT")));
         staticFileLocation("/public");
-
+        before((req, res) -> {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Request-Method", "*");
+            res.header("Access-Control-Allow-Headers", "*");
+        });
         get("/hello", (req, res) -> "Hello World");
 
         post("/company", (req, res) -> {
             ObjectMapper mapper = new ObjectMapper();
             Company company = mapper.readValue(req.body(), Company.class);
             LOG.info("creating company: " + company);
-            if (company.getOwners() == null || company.getOwners().isEmpty()) {
-                throw new IllegalArgumentException("At least one company owner is required.");
-            }
             return new IdResponse(DB.get().createCompany(company));
         }, Main::toJson);
 
