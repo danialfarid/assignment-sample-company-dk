@@ -16,7 +16,7 @@ public class DB {
     }
 
     public List<Company> listCompanies() {
-        withEM(em -> {
+        return withEM(em -> {
             return em.createQuery("select NEW Company(c.id, c.name) from Company as c", Company.class).getResultList();
         });
     }
