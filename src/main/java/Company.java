@@ -15,7 +15,7 @@ public class Company {
     private String phone;
 
     @OneToMany(mappedBy = "owner")
-    private List<String> owners;
+    private List<Owner> owners;
 
     public String getName() {
         return name;
@@ -65,11 +65,11 @@ public class Company {
         this.phone = phone;
     }
 
-    public List<String> getOwners() {
+    public List<Owner> getOwners() {
         return owners;
     }
 
-    public void setOwners(List<String> owners) {
+    public void setOwners(List<Owner> owners) {
         this.owners = owners;
     }
 
