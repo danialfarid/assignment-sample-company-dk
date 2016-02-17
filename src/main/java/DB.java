@@ -3,6 +3,7 @@ import sun.rmi.runtime.Log;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.xml.bind.ValidationException;
 import java.util.List;
 import java.util.function.Function;
 import java.util.logging.Logger;
@@ -44,6 +45,9 @@ public class DB {
             try {
                 em.getTransaction().begin();
                 return fn.apply(em);
+            } catch (Exception e) {
+                LOG.info(e.getClass() + e.getMessage());
+                throw e;
             } finally {
                 if (em.getTransaction().isActive()) {
                     em.getTransaction().commit();
