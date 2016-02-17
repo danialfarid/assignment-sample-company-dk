@@ -20,8 +20,10 @@ public class DB {
     public Long createCompany(@Valid Company company) {
         return withTransaction(em -> {
             try {
+                List<Owner> owners = company.getOwners();
+                company.setOwners(null);
                 em.persist(company);
-                company.getOwners().forEach(o -> {
+                owners.forEach(o -> {
                     o.setCompany(company);
                     em.persist(o);
                 });
