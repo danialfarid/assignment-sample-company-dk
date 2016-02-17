@@ -11,6 +11,10 @@ public class Owner implements Serializable {
     @NotNull
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private Company company;
+
     public Long getId() {
         return id;
     }
@@ -33,5 +37,13 @@ public class Owner implements Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }

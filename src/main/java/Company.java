@@ -17,7 +17,7 @@ public class Company extends CompanyBase implements Serializable {
     private String email;
     private String phone;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "company", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @NotEmpty
     private List<Owner> owners;
 
