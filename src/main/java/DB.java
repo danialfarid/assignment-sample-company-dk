@@ -46,6 +46,7 @@ public class DB {
                 em.getTransaction().begin();
                 return fn.apply(em);
             } catch (Exception e) {
+                LOG.info("((*****************************");
                 LOG.info(e.getClass() + e.getMessage());
                 throw e;
             } finally {
