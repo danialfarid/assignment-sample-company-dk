@@ -3,6 +3,8 @@ import sun.rmi.runtime.Log;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.RollbackException;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import javax.xml.bind.ValidationException;
 import java.util.List;
@@ -50,11 +52,16 @@ public class DB {
                 if (em.getTransaction().isActive()) {
                     try {
                         em.getTransaction().commit();
-                    }  catch (Exception e) {
-                        LOG.info("((*****************************");
-                        LOG.info(e + e.getMessage() + e.getCause());
-                        throw e;
-
+                    }  catch (RollbackException e) {
+                        try {
+                            if (e.getCause() != null && e.getCause() instanceof ConstraintViolationException) {
+                                throw new IllegalArgumentException(e.getCause());
+                            } else {
+                                throw e;
+                            }
+                        } finally {
+                            em.getTransaction().rollback();
+                        }
                     }
                 }
             }
