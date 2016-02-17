@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "owner")
-public class Owner implements Serializable {
+public class OwnerOld implements Serializable {
     @Id
     @GeneratedValue()
     private Long id;
@@ -13,7 +13,7 @@ public class Owner implements Serializable {
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="COMPANY_ID")
-    private Company company;
+    private CompanyOld company;
 
     public Long getId() {
         return id;
@@ -39,11 +39,11 @@ public class Owner implements Serializable {
                 '}';
     }
 
-    public Company getCompany() {
+    public CompanyOld getCompany() {
         return company;
     }
 
-    public void setCompany(Company company) {
+    public void setCompany(CompanyOld company) {
         this.company = company;
     }
 }

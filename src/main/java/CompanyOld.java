@@ -5,7 +5,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "company")
-public class Company extends CompanyBase implements Serializable {
+public class CompanyOld extends CompanyBase implements Serializable {
     @NotNull
     private String address;
     @NotNull
@@ -16,16 +16,16 @@ public class Company extends CompanyBase implements Serializable {
     private String phone;
 
     @OneToMany(mappedBy="company")
-    private List<Owner> owners;
+    private List<OwnerOld> owners;
 
-    public Company() {
+    public CompanyOld() {
     }
 
-    public Company(int id) {
+    public CompanyOld(int id) {
         setId(id);
     }
 
-    public Company(int id, String name) {
+    public CompanyOld(int id, String name) {
         super(id, name);
     }
 
@@ -69,11 +69,11 @@ public class Company extends CompanyBase implements Serializable {
         this.phone = phone;
     }
 
-    public List<Owner> getOwners() {
+    public List<OwnerOld> getOwners() {
         return owners;
     }
 
-    public void setOwners(List<Owner> owners) {
+    public void setOwners(List<OwnerOld> owners) {
         this.owners = owners;
     }
 

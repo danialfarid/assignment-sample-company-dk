@@ -1,7 +1,7 @@
 public class IdResponse {
     private int id;
 
-    public IdResponse(int  id) {
+    public IdResponse(int id) {
         this.id = id;
     }
 

@@ -1,12 +1,9 @@
-import sun.rmi.runtime.Log;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.RollbackException;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
-import javax.xml.bind.ValidationException;
 import java.util.List;
 import java.util.function.Function;
 import java.util.logging.Logger;
@@ -17,11 +14,11 @@ public class DB {
     private static final DB INSTANCE = new DB();
     EntityManagerFactory factory = Persistence.createEntityManagerFactory("persistence");
 
-    public int createCompany(@Valid Company company) {
+    public int createCompany(@Valid CompanyOld company) {
         return withTransaction(em -> {
             try {
                 em.persist(company);
-                for (Owner owner : company.getOwners()) {
+                for (OwnerOld owner : company.getOwners()) {
                     em.persist(owner);
                 }
             } catch (Throwable t) {
@@ -34,7 +31,7 @@ public class DB {
 
     public List<CompanyBase> listCompanies() {
         return withEM(em -> {
-            List<CompanyBase> list = em.createQuery("select NEW Company(c.id, c.name) from Company as c", Company.class)
+            List<CompanyBase> list = em.createQuery("select NEW CompanyOld(c.id, c.name) from CompanyOld as c", CompanyOld.class)
                     .getResultList().stream().map(c -> new CompanyBase(c.getId(), c.getName()))
                     .collect(Collectors.toList());
             LOG.info("list companies: " + list);
@@ -42,8 +39,8 @@ public class DB {
         });
     }
 
-    public Company getCompany(Long id) {
-        return withEM(em -> em.find(Company.class, id));
+    public CompanyOld getCompany(Long id) {
+        return withEM(em -> em.find(CompanyOld.class, id));
     }
 
     private <T> T withTransaction(Function<EntityManager, T> fn) {

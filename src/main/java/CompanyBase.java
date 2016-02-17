@@ -12,7 +12,7 @@ public class CompanyBase implements Serializable {
     private String name;
 
     @OneToMany(mappedBy = "id", cascade = CascadeType.PERSIST)
-    private List<Owner> owners;
+    private List<OwnerOld> owners;
 
     public CompanyBase() {
     }
