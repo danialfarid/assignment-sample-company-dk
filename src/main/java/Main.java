@@ -39,43 +39,43 @@ public class Main {
 
         em.getTransaction().begin();
 
-        Department department1 = new Department();
-        department1.setName("Q/A");
-        department1.setCity("a");
-        department1.setCountry("a");
-        department1.setAddress("a");
+        Company company1 = new Company();
+        company1.setName("Q/A");
+        company1.setCity("a");
+        company1.setCountry("a");
+        company1.setAddress("a");
 
-        Department department2 = new Department();
-        department2.setName("HR");
-        department2.setCity("a");
-        department2.setCountry("a");
-        department2.setAddress("a");
+        Company company2 = new Company();
+        company2.setName("HR");
+        company2.setCity("a");
+        company2.setCountry("a");
+        company2.setAddress("a");
 
-        Employee employee1 = new Employee();
-        employee1.setName("Jack");
-        employee1.setDepartment(department1);
+        Owner owner1 = new Owner();
+        owner1.setName("Jack");
+        owner1.setCompany(company1);
 
-        Employee employee2 = new Employee();
-        employee2.setName("Mary");
-        employee2.setDepartment(department2);
+        Owner owner2 = new Owner();
+        owner2.setName("Mary");
+        owner2.setCompany(company2);
 
-        em.persist(department1);
-        em.persist(department2);
-        em.persist(employee1);
-        em.persist(employee2);
+        em.persist(company1);
+        em.persist(company2);
+        em.persist(owner1);
+        em.persist(owner2);
 
-        long employeeId1 = employee1.getId();
-        long employeeId2 = employee2.getId();
+        long employeeId1 = owner1.getId();
+        long employeeId2 = owner2.getId();
 
         em.getTransaction().commit();
 
         em.getTransaction().begin();
 
-        Employee dbEmployee1 =em.find(Employee.class, employeeId1);
-        System.out.println("dbEmployee " + dbEmployee1);
+        Owner dbOwner1 =em.find(Owner.class, employeeId1);
+        System.out.println("dbEmployee " + dbOwner1);
 
-        Employee dbEmployee2 =em.find(Employee.class, employeeId2);
-        System.out.println("dbEmployee " + dbEmployee2);
+        Owner dbOwner2 =em.find(Owner.class, employeeId2);
+        System.out.println("dbEmployee " + dbOwner2);
 
         em.getTransaction().commit();
 

@@ -2,14 +2,14 @@
 import javax.persistence.*;
 
 @Entity
-public class Employee {
+public class Owner {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private String name;
     @ManyToOne
-    private Department department;
+    private Company company;
 
     public Long getId() {
         return id;
@@ -25,12 +25,12 @@ public class Employee {
         this.name = name;
     }
 
-    public Department getDepartment() {
-        return department;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     @Override

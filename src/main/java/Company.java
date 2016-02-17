@@ -3,10 +3,10 @@ import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
 @Entity
-public class Department extends CompanyBase {
+public class Company extends CompanyBase {
 
     @OneToMany(mappedBy="department")
-    private Collection<Employee> employees;
+    private Collection<Owner> owners;
 
     @NotNull
     private String address;
@@ -17,8 +17,8 @@ public class Department extends CompanyBase {
     private String email;
     private String phone;
 
-    public void setEmployees(Collection<Employee> employees) {
-        this.employees = employees;
+    public void setOwners(Collection<Owner> owners) {
+        this.owners = owners;
     }
 
     public String getAddress() {
@@ -61,20 +61,20 @@ public class Department extends CompanyBase {
         this.phone = phone;
     }
 
-    public void addEmployee(Employee employee) {
-        if (!employees.contains(employee)) {
-            employees.add(employee);
+    public void addEmployee(Owner owner) {
+        if (!owners.contains(owner)) {
+            owners.add(owner);
 
         }
     }
 
-    public Collection<Employee> getEmployees() {
-        return employees;
+    public Collection<Owner> getOwners() {
+        return owners;
     }
 
     @Override
     public String toString() {
-        return "Department [employees=" + employees + ", id=" + getId() + ", name="
+        return "Department [employees=" + owners + ", id=" + getId() + ", name="
                 + getName()+ "]";
     }
 }
