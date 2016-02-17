@@ -17,6 +17,11 @@ public class Company {
     @OneToMany(mappedBy = "id")
     private List<Owner> owners;
 
+    public Company(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
