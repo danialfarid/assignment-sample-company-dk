@@ -3,6 +3,7 @@ import sun.rmi.runtime.Log;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.validation.Valid;
 import javax.xml.bind.ValidationException;
 import java.util.List;
 import java.util.function.Function;
@@ -14,7 +15,7 @@ public class DB {
     private static final DB INSTANCE = new DB();
     EntityManagerFactory factory = Persistence.createEntityManagerFactory("persistence");
 
-    public Long createCompany(Company company) {
+    public Long createCompany(@Valid Company company) {
         return withTransaction(em -> {
             try {
                 em.persist(company);
