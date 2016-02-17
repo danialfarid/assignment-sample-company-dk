@@ -11,7 +11,7 @@ public class Company implements Serializable {
     @NotNull
     private String name;
 
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
     private Collection<Owner> owners;
 
     @NotNull
