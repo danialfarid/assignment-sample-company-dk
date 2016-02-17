@@ -13,7 +13,7 @@ public class DB {
     EntityManagerFactory factory = Persistence.createEntityManagerFactory("persistence");
 
     public Long createCompany(Company company) {
-        return withEM(em -> {
+        return withTransaction(em -> {
             try {
                 em.persist(company);
             } catch (Throwable t) {
@@ -40,17 +40,23 @@ public class DB {
         return null;
     }
 
+    private <T> T withTransaction(Function<EntityManager, T> fn) {
+        return withEM(em -> {
+            try {
+                em.getTransaction().begin();
+                return fn.apply(em);
+            } finally {
+                em.getTransaction().commit();
+            }
+        });
+    }
+
     private <T> T withEM(Function<EntityManager, T> fn) {
         EntityManager em = factory.createEntityManager();
         try {
-            em.getTransaction().begin();
             return fn.apply(em);
         } finally {
-            try {
-                em.getTransaction().commit();
-            } finally {
-                em.close();
-            }
+            em.close();
         }
     }
 
