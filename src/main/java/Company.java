@@ -6,7 +6,7 @@ import java.util.List;
 public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
     private String name;
     private String address;
     private String city;
@@ -16,14 +16,6 @@ public class Company {
 
     @OneToMany(mappedBy = "owner")
     private List<String> owners;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -79,5 +71,13 @@ public class Company {
 
     public void setOwners(List<String> owners) {
         this.owners = owners;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
