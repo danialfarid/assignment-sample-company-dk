@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static spark.Spark.*;
@@ -84,6 +85,7 @@ public class Main {
         exception(Exception.class, (e, req, res) -> {
             res.status(400);
             LOG.throwing("", "", e);
+            LOG.log(Level.SEVERE, "", e);
             res.body(toJson(new ResponseError(e.getClass().getName() + e.getMessage() + e.getCause())));
         });
 
