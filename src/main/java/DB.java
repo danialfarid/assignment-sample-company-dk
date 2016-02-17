@@ -36,9 +36,7 @@ public class DB {
     }
 
     public Company getCompany(Long id) {
-        return withEM(em -> {
-            return em.find(Company.class, new Company(id));
-        });
+        return withEM(em -> em.find(Company.class, id));
     }
 
     private <T> T withTransaction(Function<EntityManager, T> fn) {
