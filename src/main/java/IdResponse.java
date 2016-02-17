@@ -1,15 +1,15 @@
 public class IdResponse {
-    private Long id;
+    private int id;
 
-    public IdResponse(Long id) {
+    public IdResponse(int  id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 }
