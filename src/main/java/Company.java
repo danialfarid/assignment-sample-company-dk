@@ -1,11 +1,19 @@
-import javax.persistence.*;
+import com.sun.istack.internal.NotNull;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
 
 @Entity
 @Table(name = "company")
 public class Company extends CompanyBase {
+    @NotNull
     private String address;
+    @NotNull
     private String city;
+    @NotNull
     private String country;
     private String email;
     private String phone;

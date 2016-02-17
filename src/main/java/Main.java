@@ -43,6 +43,17 @@ public class Main {
             return DB.get().listCompanies();
         }, Main::toJson);
 
+        get("/company/:id", (req, res) -> {
+            String idStr = req.params(":id");
+            long id;
+            try {
+                id = Long.parseLong(idStr);
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("id is not valid");
+            }
+            return DB.get().getCompany(id);
+        }, Main::toJson);
+
         get("/", (request, response) -> {
             Map<String, Object> attributes = new HashMap<>();
             attributes.put("message", "Hello World!");
