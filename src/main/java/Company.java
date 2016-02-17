@@ -1,7 +1,7 @@
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "company")
@@ -15,8 +15,8 @@ public class Company extends CompanyBase implements Serializable {
     private String email;
     private String phone;
 
-    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
-    private List<Owner> owners;
+    @OneToMany(mappedBy = "company", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private Set<Owner> owners;
 
     public Company() {
     }
@@ -69,11 +69,11 @@ public class Company extends CompanyBase implements Serializable {
         this.phone = phone;
     }
 
-    public List<Owner> getOwners() {
+    public Set<Owner> getOwners() {
         return owners;
     }
 
-    public void setOwners(List<Owner> owners) {
+    public void setOwners(Set<Owner> owners) {
         this.owners = owners;
     }
 
