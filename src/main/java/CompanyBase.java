@@ -2,8 +2,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-@Entity
-@Table(name="company")
 public class CompanyBase implements Serializable {
     @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
