@@ -53,14 +53,10 @@ public class DB {
                     try {
                         em.getTransaction().commit();
                     }  catch (RollbackException e) {
-                        try {
-                            if (e.getCause() != null && e.getCause() instanceof ConstraintViolationException) {
-                                throw new IllegalArgumentException(e.getCause());
-                            } else {
-                                throw e;
-                            }
-                        } finally {
-                            em.getTransaction().rollback();
+                        if (e.getCause() != null && e.getCause() instanceof ConstraintViolationException) {
+                            throw new IllegalArgumentException(e.getCause());
+                        } else {
+                            throw e;
                         }
                     }
                 }
