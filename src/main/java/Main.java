@@ -13,7 +13,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -48,16 +47,10 @@ public class Main {
 
         Employee employee1 = new Employee();
         employee1.setName("Jack");
-        employee1.setSurname("Thomson");
-        employee1.setTitle("QA Engineer");
-        employee1.setCreated(new Date());
         employee1.setDepartment(department1);
 
         Employee employee2 = new Employee();
         employee2.setName("Mary");
-        employee2.setSurname("Nickolson");
-        employee2.setTitle("QA Engineer");
-        employee2.setCreated(new Date());
         employee2.setDepartment(department2);
 
         em.persist(department1);
