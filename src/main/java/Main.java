@@ -4,6 +4,7 @@ import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 
 import javax.validation.ConstraintViolationException;
+import javax.validation.ValidationException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -70,6 +71,14 @@ public class Main {
             res.body(toJson(new ResponseError(e)));
         });
         exception(ConstraintViolationException.class, (e, req, res) -> {
+            res.status(400);
+            res.body(toJson(new ResponseError(e)));
+        });
+        exception(ValidationException.class, (e, req, res) -> {
+            res.status(400);
+            res.body(toJson(new ResponseError(e)));
+        });
+        exception(Exception.class, (e, req, res) -> {
             res.status(400);
             res.body(toJson(new ResponseError(e)));
         });
