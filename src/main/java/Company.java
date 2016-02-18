@@ -13,7 +13,7 @@ public class Company implements Serializable {
     @NotNull
     private String name;
 
-    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
     @NotEmpty
     private Collection<Owner> owners;
 
