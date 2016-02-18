@@ -4,12 +4,8 @@ import com.df.interview.companiesdk.model.Company;
 import com.df.interview.companiesdk.model.Owner;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import spark.ModelAndView;
-import spark.template.freemarker.FreeMarkerEngine;
 
 import javax.validation.ValidationException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Logger;
 
 import static spark.Spark.*;
@@ -68,6 +64,7 @@ public class Server {
 
         get("/", (request, response) -> {
             response.redirect("index.html");
+            return "OK";
         });
 
         after((req, res) -> res.type("application/json"));
