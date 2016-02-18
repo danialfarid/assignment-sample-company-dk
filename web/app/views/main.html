@@ -1,24 +1,35 @@
 <div>
   <h2>Companies Management</h2>
   <h4>List of companies</h4>
+  <button ng-click="addCompany()">Add New Company</button>
   <ul>
       <li ng-repeat="company in companies">
         <a ng-click="showDetails(company, $index)">{{company.name}}</a>
-        <table ng-show="$parent.currentCompany == company">
-          <tr><td>Name</td><td><input type="text" ng-model="company.name"></td></tr>
-          <tr><td>Address</td><td><input type="text" ng-model="company.address"></td></tr>
-          <tr><td>City</td><td><input type="text" ng-model="company.city"></td></tr>
-          <tr><td>Country</td><td><input type="text" ng-model="company.country"></td></tr>
-          <tr><td>Email</td><td><input type="text" ng-model="company.email"></td></tr>
-          <tr><td>Phone</td><td><input type="text" ng-model="company.phone"></td></tr>
-          <tr><td>Owners</td><td>
-            <ul>
-              <li ng-repeat="owner in owners">
-                <input type="text" ng-model="owner.name">
-              </li>
-            </ul>
-          </td></tr>
-        </table>
+        <button ng-show="currentCompany == company"
+                ng-click="removeCompany(currentCompany, $index)">Remove</button>
+        <form name="companyForm">
+          <table ng-show="$parent.currentCompany == company">
+            <tr><td>Name</td><td><input type="text" ng-model="company.name" required></td></tr>
+            <tr><td>Address</td><td><input type="text" ng-model="company.address" required></td></tr>
+            <tr><td>City</td><td><input type="text" ng-model="company.city" required></td></tr>
+            <tr><td>Country</td><td><input type="text" ng-model="company.country" required></td></tr>
+            <tr><td>Email</td><td><input type="text" ng-model="company.email"></td></tr>
+            <tr><td>Phone</td><td><input type="text" ng-model="company.phone"></td></tr>
+            <tr><td>Owners</td><td>
+              <button ng-click="addOwner(company)">Add Owner</button>
+              <ol>
+                <li ng-repeat="owner in company.owners">
+                  <input type="text" ng-model="owner.name" required>
+                  <button ng-show="company.owners.length > 1"
+                    ng-click="removeOwner(company, owner, $index)">Remove</button>
+                </li>
+              </ol>
+            </td></tr>
+          </table>
+          <button ng-show="!company.id"
+                  ng-click="companyForm.$valid && createCompany(currentCompany)">
+            Create Company</button>
+        </form>
       </li>
   </ul>
 </div>
