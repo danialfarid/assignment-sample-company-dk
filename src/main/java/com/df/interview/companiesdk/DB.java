@@ -32,10 +32,10 @@ public class DB {
     public Long deleteCompany(Long companyId) {
         Company company = getCompany(companyId);
         return withinTransaction(em -> {
-            company = em.merge(company);
-            company.getOwners().forEach(em::remove);
-            em.remove(company);
-            return company.getId();
+            Company mergedCompany = em.merge(company);
+            mergedCompany.getOwners().forEach(em::remove);
+            em.remove(mergedCompany);
+            return mergedCompany.getId();
         });
     }
 
@@ -77,10 +77,10 @@ public class DB {
         Company company = getCompany(companyId);
         Owner owner = getOwner(ownerId);
         return withinTransaction(em -> {
-            owner = em.merge(owner);
+            Owner mergedOwner = em.merge(owner);
             company.getOwners().remove(owner);
             em.merge(company);
-            em.remove(owner);
+            em.remove(mergedOwner);
             return owner.getId();
         });
     }
