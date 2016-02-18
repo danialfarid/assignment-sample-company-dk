@@ -43,7 +43,7 @@ public class DB {
         return withinTransaction(em -> {
             company.getOwners().forEach(owner -> owner.setCompany(company));
             em.merge(company);
-            company.getOwners().forEach(em::merge);
+//            company.getOwners().forEach(em::merge);
             return company.getId();
         });
     }

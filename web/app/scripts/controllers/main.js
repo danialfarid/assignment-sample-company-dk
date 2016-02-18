@@ -44,14 +44,14 @@ angular.module('webApp')
       }
     };
 
-    $scope.$watchCollection('currentCompany', function(v) {
-      if ($scope.currentCompany.id) {
+    $scope.$watchCollection('currentCompany', function(v, oldV) {
+      if ($scope.currentCompany.id && oldV === v) {
         Company.update({companyId: $scope.currentCompany.id}, $scope.currentCompany);
       }
     });
 
-    $scope.$watchCollection('currentCompany.owners', function(v) {
-      if ($scope.currentCompany.id) {
+    $scope.$watchCollection('currentCompany.owners', function(v, oldV) {
+      if ($scope.currentCompany.id && oldV != null) {
         Company.update({companyId: $scope.currentCompany.id}, $scope.currentCompany);
       }
     });
@@ -59,9 +59,11 @@ angular.module('webApp')
     $scope.removeCompany = function(company, index) {
       if (company.id) {
         company.$remove(function () {
+          $scope.currentCompany = {};
           $scope.companies.splice(index, 1);
         });
       } else {
+        $scope.currentCompany = {};
         $scope.companies.splice(index, 1);
       }
     };

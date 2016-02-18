@@ -16,7 +16,7 @@
             <tr><td>Email</td><td><input type="text" ng-model="company.email"></td></tr>
             <tr><td>Phone</td><td><input type="text" ng-model="company.phone"></td></tr>
             <tr><td>Owners</td><td>
-              <button ng-click="addOwner(company)">Add Owner</button>
+              <button ng-click="addOwner(company)">Add a new Owner</button>
               <ol>
                 <li ng-repeat="owner in company.owners">
                   <input type="text" ng-model="owner.name" required>
