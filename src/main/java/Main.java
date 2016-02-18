@@ -48,7 +48,7 @@ public class Main {
             return new IdResponse(DB.get().createCompany(company));
         }, Main::toJson);
 
-        put("/company", (req, res) -> {
+        put("/company/:id", (req, res) -> {
             ObjectMapper mapper = new ObjectMapper();
             Company company = mapper.readValue(req.body(), Company.class);
             LOG.info("updating company: " + company);

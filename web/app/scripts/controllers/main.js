@@ -9,7 +9,7 @@
  */
 angular.module('webApp')
   .controller('MainCtrl', function ($scope, $resource) {
-    var Company = $resource('https://calm-meadow-37274.herokuapp.com/company/:companyId', {companyId:'@id'});
+    var Company = $resource('https://calm-meadow-37274.herokuapp.com/company/:companyId', {companyId:'@id'}, 'update': { method:'PUT' });
     var Owner = $resource('https://calm-meadow-37274.herokuapp.com/company/:companyId/owner/:ownerId', {companyId:'@id', ownerId: '@id'});
     $scope.companies = Company.query();
     $scope.currentCompany = {};
@@ -21,10 +21,9 @@ angular.module('webApp')
     };
 
     $scope.$watchCollection('currentCompany', function(v) {
-      if ($scope.currentCompany.$save) {
-        $scope.currentCompany.$save();
+      if ($scope.currentCompany.id) {
+        Company.update({companyId: $scope.currentCompany.id}, $scope.currentCompany);
       }
-      console.log(v);
     });
 
     $scope.addOwner = function(company, owner) {
