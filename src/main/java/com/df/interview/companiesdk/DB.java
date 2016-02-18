@@ -29,6 +29,14 @@ public class DB {
         });
     }
 
+    public Long updateCompany(Company company) {
+        return withinTransaction(em -> {
+            company.getOwners().forEach(owner -> owner.setCompany(company));
+            em.merge(company);
+            return company.getId();
+        });
+    }
+
     public Long deleteCompany(Long companyId) {
         Company company = getCompany(companyId);
         return withinTransaction(em -> {
@@ -36,15 +44,6 @@ public class DB {
             mergedCompany.getOwners().forEach(em::remove);
             em.remove(mergedCompany);
             return mergedCompany.getId();
-        });
-    }
-
-    public Long updateCompany(Company company) {
-        return withinTransaction(em -> {
-            company.getOwners().forEach(owner -> owner.setCompany(company));
-            em.merge(company);
-//            company.getOwners().forEach(em::merge);
-            return company.getId();
         });
     }
 
