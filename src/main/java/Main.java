@@ -34,7 +34,7 @@ public class Main {
         staticFileLocation("/public");
         before((req, res) -> {
             res.header("Access-Control-Allow-Origin", "*");
-            res.header("Access-Control-Request-Method", "GET POST PUT OPTIONS DELETE");
+            res.header("Access-Control-Request-Method", "GET,POST,PUT,OPTIONS,DELETE");
             res.header("Access-Control-Allow-Headers", "Content-Type");
         });
 
