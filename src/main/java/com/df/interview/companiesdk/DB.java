@@ -49,7 +49,7 @@ public class DB {
 
     public List<CompanyName> listCompanies() {
         return withinEM(em -> {
-            List<CompanyName> list = em.createQuery("select NEW Company(c.id, c.name) from Company as c", Company.class)
+            List<CompanyName> list = em.createQuery("select NEW Company(c.id, c.name) from Company as c ORDER BY c.name", Company.class)
                     .getResultList().stream().map(c -> new CompanyName(c.getId(), c.getName()))
                     .collect(Collectors.toList());
             LOG.info("list companies: " + list);

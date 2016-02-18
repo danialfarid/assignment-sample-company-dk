@@ -44,7 +44,13 @@ angular.module('webApp')
       }
     };
 
-    $scope.$watchCollection(['currentCompany', 'currentCompany.owners'], function(v) {
+    $scope.$watchCollection('currentCompany', function(v) {
+      if ($scope.currentCompany.id) {
+        Company.update({companyId: $scope.currentCompany.id}, $scope.currentCompany);
+      }
+    });
+
+    $scope.$watchCollection('currentCompany.owners', function(v) {
       if ($scope.currentCompany.id) {
         Company.update({companyId: $scope.currentCompany.id}, $scope.currentCompany);
       }
