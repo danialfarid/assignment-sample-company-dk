@@ -53,19 +53,27 @@ public class Main {
             return new IdResponse(DB.get().updateCompany(company));
         }, Main::toJson);
 
+        post("/company/:id/owner", (req, res) -> {
+            long companyId = toLong(req.params(":id"));
+            ObjectMapper mapper = new ObjectMapper();
+            Owner owner = mapper.readValue(req.body(), Owner.class);
+            LOG.info("add owner to company: " + companyId + " " + owner);
+            return new IdResponse(DB.get().addOwner(companyId, owner));
+        }, Main::toJson);
+
+        delete("/company/:companyId/owner/:ownerId", (req, res) -> {
+            long companyId = toLong(req.params(":companyId"));
+            long ownerId = toLong(req.params(":ownerId"));
+            LOG.info("removing owner from company: " + companyId + " " + ownerId);
+            return new IdResponse(DB.get().deleteOwner(companyId, ownerId));
+        }, Main::toJson);
+
         get("/company", (req, res) -> {
             return DB.get().listCompanies();
         }, Main::toJson);
 
         get("/company/:id", (req, res) -> {
-            String idStr = req.params(":id");
-            long id;
-            try {
-                id = Long.parseLong(idStr);
-            } catch (NumberFormatException e) {
-                throw new IllegalArgumentException("id is not valid");
-            }
-            return DB.get().getCompany(id);
+            return DB.get().getCompany(toLong(req.params(":id")));
         }, Main::toJson);
 
         get("/", (request, response) -> {
@@ -125,6 +133,16 @@ public class Main {
             }
         }, new FreeMarkerEngine());
 
+    }
+
+    private static long toLong(String idStr) {
+        long id;
+        try {
+            id = Long.parseLong(idStr);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("id is not valid");
+        }
+        return id;
     }
 
 }

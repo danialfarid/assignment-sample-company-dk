@@ -23,6 +23,28 @@ public class DB {
         });
     }
 
+    public Long addOwner(long companyId, Owner owner) {
+        Company company = getCompany(companyId);
+        return withTransaction(em -> {
+            company.getOwners().add(owner);
+            owner.setCompany(company);
+            em.persist(owner);
+            em.merge(company);
+            return owner.getId();
+        });
+    }
+
+    public Long deleteOwner(long companyId, long ownerId) {
+        Company company = getCompany(companyId);
+        Owner owner = getOwner(ownerId);
+        return withTransaction(em -> {
+            company.getOwners().remove(owner);
+            em.merge(company);
+            em.remove(owner);
+            return owner.getId();
+        });
+    }
+
     public Long createCompany(@Valid Company company) {
         return withTransaction(em -> {
             company.getOwners().forEach(owner -> owner.setCompany(company));
@@ -44,6 +66,10 @@ public class DB {
 
     public Company getCompany(Long id) {
         return withEM(em -> em.find(Company.class, id));
+    }
+
+    public Owner getOwner(Long id) {
+        return withEM(em -> em.find(Owner.class, id));
     }
 
     private <T> T withTransaction(Function<EntityManager, T> fn) {
