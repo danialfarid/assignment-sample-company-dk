@@ -1,14 +1,19 @@
-<div class="jumbotron">
-  <h1>'Allo, 'Allo!</h1>
-  <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
-</div>
-
-<div class="row marketing">
-  <h4>Companies Management</h4>
+<div>
+  <h2>Companies Management</h2>
+  <h4>List of companies</h4>
+  <ul>
+      <li ng-repeat="company in companies">
+        <a ng-click="showDetails(company, $index)">{{company.name}}</a>
+        <table ng-show="$parent.currentCompany == company">
+          <tr><td>Name</td><td><input type="text" ng-model="company.name"></td></tr>
+          <tr><td>Address</td><td><input type="text" ng-model="company.address"></td></tr>
+          <tr><td>City</td><td><input type="text" ng-model="company.city"></td></tr>
+          <tr><td>Country</td><td><input type="text" ng-model="company.country"></td></tr>
+          <tr><td>Email</td><td><input type="text" ng-model="company.email"></td></tr>
+          <tr><td>Phone</td><td><input type="text" ng-model="company.phone"></td></tr>
+        </table>
+      </li>
+  </ul>
   {{companies}}
   <p>
     HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.

@@ -9,11 +9,13 @@
  */
 angular.module('webApp')
   .controller('MainCtrl', function ($scope, $resource) {
-    var Company = $resource('https://calm-meadow-37274.herokuapp.com/company/:id', {companyId:'@id'});
+    var Company = $resource('https://calm-meadow-37274.herokuapp.com/company/:companyId', {companyId:'@id'});
     $scope.companies = Company.query();
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+    $scope.currentCompany = {};
+    $scope.showDetails = function(company, index) {
+      Company.get({companyId: company.id}, function(fullCompany) {
+        $scope.companies.splice(index, 1, fullCompany);
+        $scope.currentCompany = fullCompany;
+      });
+    }
   });

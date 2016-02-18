@@ -1,7 +1,9 @@
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
 @Entity
+@JsonIgnoreProperties({"company"})
 public class Owner {
 
     @Id
