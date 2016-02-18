@@ -38,12 +38,7 @@ public class Main {
             res.header("Access-Control-Allow-Headers", "*");
         });
 
-        options("/*", (req, res) -> {
-            res.header("Access-Control-Allow-Origin", "*");
-            res.header("Access-Control-Request-Method", "*");
-            res.header("Access-Control-Allow-Headers", "*");
-            return "OK";
-        });
+        options("/*", (req, res) -> "OK");
         get("/hello", (req, res) -> "Hello World");
 
         post("/company", (req, res) -> {
