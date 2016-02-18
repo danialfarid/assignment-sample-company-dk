@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.validation.ValidationException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static spark.Spark.*;
@@ -79,6 +80,11 @@ public class Server {
         exception(ValidationException.class, (e, req, res) -> {
             res.status(400);
             res.body(toJson(new ResponseError(e)));
+        });
+        exception(Exception.class, (e, req, res) -> {
+            res.status(500);
+            LOG.log(Level.SEVERE, "", e);
+            res.body(toJson(new ResponseError(e.getClass().getName() + e.getMessage() + e.getCause())));
         });
     }
 
