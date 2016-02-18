@@ -48,15 +48,15 @@ public class Main {
             return new IdResponse(DB.get().createCompany(company));
         }, Main::toJson);
 
-        put("/company/:id", (req, res) -> {
+        put("/company/:companyId", (req, res) -> {
             ObjectMapper mapper = new ObjectMapper();
             Company company = mapper.readValue(req.body(), Company.class);
             LOG.info("updating company: " + company);
             return new IdResponse(DB.get().updateCompany(company));
         }, Main::toJson);
 
-        post("/company/:id/owner", (req, res) -> {
-            long companyId = toLong(req.params(":id"));
+        post("/company/:companyId/owner", (req, res) -> {
+            long companyId = toLong(req.params(":companyId"));
             ObjectMapper mapper = new ObjectMapper();
             Owner owner = mapper.readValue(req.body(), Owner.class);
             LOG.info("add owner to company: " + companyId + " " + owner);
@@ -74,8 +74,8 @@ public class Main {
             return DB.get().listCompanies();
         }, Main::toJson);
 
-        get("/company/:id", (req, res) -> {
-            return DB.get().getCompany(toLong(req.params(":id")));
+        get("/company/:companyId", (req, res) -> {
+            return DB.get().getCompany(toLong(req.params(":companyId")));
         }, Main::toJson);
 
         get("/", (request, response) -> {
