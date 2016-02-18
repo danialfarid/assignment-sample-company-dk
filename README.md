@@ -1,40 +1,25 @@
-# java-getting-started
+# Companies CRUD Assignment
 
-A barebones Java app, which can easily be deployed to Heroku.
+A sample app for CRUD operations on companies and their owners. Backend is implemented using Java and front-end is implemented with Angular.js.
+The app is deployed on [Heroku](https://dashboard.heroku.com/) and can be accessed here: [https://calm-meadow-37274.herokuapp.com/](https://calm-meadow-37274.herokuapp.com/)
 
-This application support the [Getting Started with Java on Heroku](https://devcenter.heroku.com/articles/getting-started-with-java) article - check it out.
+## For developers
+### back-end
+Backend is implemented with JavaSE and maven as build tool. The app is deployed on [Heroku](https://dashboard.heroku.com/) and is connecting to the embeded Postgresql relational database on Heroku.
+The app is using [Maven3[(https://maven.apache.org/download.cgi) as build tool and [Spark java REST framework](http://sparkjava.com/) to expose its REST api.
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+```!sh
+$ mvn clean package
+```
+Once you have commited the changes to git, you can run `git push heroku master` to deploy the changes on heroku server.
+Run `heroku open` to open the app in the browser.
+You can also run `heroku local web` to run the app locally, but you need to make sure the postgresql access is granted for your local machine.
 
-## Running Locally
-
-Make sure you have Java and Maven installed.  Also, install the [Heroku Toolbelt](https://toolbelt.heroku.com/).
-
+### front-end
+Front-end is scaffolded using Yeoman, Angular.js and Grunt. To build the front-end run
 ```sh
-$ git clone https://github.com/heroku/java-getting-started.git
-$ cd java-getting-started
-$ mvn install
-$ foreman start web
+$ cd web
+$ grunt build 
 ```
-
-Your app should now be running on [localhost:5000](http://localhost:5000/).
-
-If you're going to use a database, ensure you have a local `.env` file that reads something like this:
-
-```
-DATABASE_URL=postgres://localhost:5432/java_database_name
-```
-
-## Deploying to Heroku
-
-```sh
-$ heroku create
-$ git push heroku master
-$ heroku open
-```
-
-## Documentation
-
-For more information about using Java on Heroku, see these Dev Center articles:
-
-- [Java on Heroku](https://devcenter.heroku.com/categories/java)
+This will copy the dist folder into the backend's `resources/public` folder which then will be served by Spark as static resources.
+You can run `grunt serve`` to debug/develop the app.
