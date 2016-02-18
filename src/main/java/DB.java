@@ -17,7 +17,10 @@ public class DB {
     public Long updateCompany(Company company) {
         return withTransaction(em -> {
             em.merge(company);
-            company.getOwners().forEach(em::merge);
+            company.getOwners().forEach(owner -> {
+                owner.setCompany(company);
+                em.merge(company);
+            });
             return company.getId();
         });
     }
@@ -25,7 +28,10 @@ public class DB {
     public Long createCompany(@Valid Company company) {
         return withTransaction(em -> {
             em.persist(company);
-            company.getOwners().forEach(em::persist);
+            company.getOwners().forEach(owner -> {
+                owner.setCompany(company);
+                em.persist(company);
+            });
             return company.getId();
         });
     }
