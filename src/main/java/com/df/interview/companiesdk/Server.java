@@ -21,9 +21,8 @@ public class Server {
             res.header("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS, DELETE");
             res.header("Access-Control-Allow-Headers", "Content-Type");
         });
-
+        after((req, res) -> res.type("application/json"));
         options("/*", (req, res) -> "OK");
-        get("/hello", (req, res) -> "Hello World");
 
         post("/company", (req, res) -> {
             ObjectMapper mapper = new ObjectMapper();
@@ -37,6 +36,12 @@ public class Server {
             Company company = mapper.readValue(req.body(), Company.class);
             LOG.info("updating company: " + company);
             return new IdResponse(DB.get().updateCompany(company));
+        }, Server::toJson);
+
+        delete("/company/:companyId", (req, res) -> {
+            long companyId = toLong(req.params(":companyId"));
+            LOG.info("deleting company: " + companyId);
+            return new IdResponse(DB.get().deleteCompany(companyId));
         }, Server::toJson);
 
         post("/company/:companyId/owner", (req, res) -> {
@@ -66,8 +71,6 @@ public class Server {
             response.redirect("index.html");
             return "OK";
         });
-
-        after((req, res) -> res.type("application/json"));
 
         exception(IllegalArgumentException.class, (e, req, res) -> {
             res.status(400);

@@ -20,8 +20,25 @@ public class DB {
     private static final DB INSTANCE = new DB();
     EntityManagerFactory factory = Persistence.createEntityManagerFactory("persistence");
 
+    public Long createCompany(@Valid Company company) {
+        return withinTransaction(em -> {
+            company.getOwners().forEach(owner -> owner.setCompany(company));
+            em.persist(company);
+            company.getOwners().forEach(em::persist);
+            return company.getId();
+        });
+    }
+
+    public Long deleteCompany(Long companyId) {
+        Company company = getCompany(companyId);
+        return withinTransaction(em -> {
+            em.remove(company);
+            return company.getId();
+        });
+    }
+
     public Long updateCompany(Company company) {
-        return withTransaction(em -> {
+        return withinTransaction(em -> {
             company.getOwners().forEach(owner -> owner.setCompany(company));
             em.merge(company);
             company.getOwners().forEach(em::merge);
@@ -29,9 +46,23 @@ public class DB {
         });
     }
 
+    public List<CompanyName> listCompanies() {
+        return withinEM(em -> {
+            List<CompanyName> list = em.createQuery("select NEW Company(c.id, c.name) from Company as c", Company.class)
+                    .getResultList().stream().map(c -> new CompanyName(c.getId(), c.getName()))
+                    .collect(Collectors.toList());
+            LOG.info("list companies: " + list);
+            return list;
+        });
+    }
+
+    public Company getCompany(Long id) {
+        return withinEM(em -> em.find(Company.class, id));
+    }
+
     public Long addOwner(long companyId, Owner owner) {
         Company company = getCompany(companyId);
-        return withTransaction(em -> {
+        return withinTransaction(em -> {
             company.getOwners().add(owner);
             owner.setCompany(company);
             em.persist(owner);
@@ -43,7 +74,7 @@ public class DB {
     public Long deleteOwner(long companyId, long ownerId) {
         Company company = getCompany(companyId);
         Owner owner = getOwner(ownerId);
-        return withTransaction(em -> {
+        return withinTransaction(em -> {
             company.getOwners().remove(owner);
             em.merge(company);
             em.remove(owner);
@@ -51,35 +82,20 @@ public class DB {
         });
     }
 
-    public Long createCompany(@Valid Company company) {
-        return withTransaction(em -> {
-            company.getOwners().forEach(owner -> owner.setCompany(company));
-            em.persist(company);
-            company.getOwners().forEach(em::persist);
-            return company.getId();
-        });
-    }
-
-    public List<CompanyName> listCompanies() {
-        return withEM(em -> {
-            List<CompanyName> list = em.createQuery("select NEW Company(c.id, c.name) from Company as c", Company.class)
-                    .getResultList().stream().map(c -> new CompanyName(c.getId(), c.getName()))
-                    .collect(Collectors.toList());
-            LOG.info("list companies: " + list);
-            return list;
-        });
-    }
-
-    public Company getCompany(Long id) {
-        return withEM(em -> em.find(Company.class, id));
-    }
-
     public Owner getOwner(Long id) {
-        return withEM(em -> em.find(Owner.class, id));
+        return withinEM(em -> em.find(Owner.class, id));
     }
 
-    private <T> T withTransaction(Function<EntityManager, T> fn) {
-        return withEM(em -> {
+    /**
+     * Run the given function within entity manager transaction and commits the changes
+     * after completion and closes the entity manager and transaction
+     *
+     * @param fn  function
+     * @param <T> return type
+     * @return
+     */
+    private <T> T withinTransaction(Function<EntityManager, T> fn) {
+        return withinEM(em -> {
             try {
                 em.getTransaction().begin();
                 return fn.apply(em);
@@ -99,7 +115,15 @@ public class DB {
         });
     }
 
-    private <T> T withEM(Function<EntityManager, T> fn) {
+    /**
+     * Run the given function within entity manager and closes the entity manager
+     * after completion
+     *
+     * @param fn  function
+     * @param <T> return type
+     * @return
+     */
+    private <T> T withinEM(Function<EntityManager, T> fn) {
         EntityManager em = factory.createEntityManager();
         try {
             return fn.apply(em);

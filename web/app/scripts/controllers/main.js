@@ -52,7 +52,7 @@ angular.module('webApp')
 
     $scope.removeCompany = function(company, index) {
       if (company.id) {
-        company.delete(function () {
+        company.$remove(function () {
           $scope.companies.splice(index, 1);
         });
       } else {
