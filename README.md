@@ -1,38 +1,35 @@
 #Assignment: Companies CRUD 
 
-A sample app for CRUD operations on companies and their owners. Backend is implemented using Java and front-end is implemented with Angular.js.
+A sample app for CRUD operations on companies and their owners. Backend is implemented using Java and front-end is implemented with Angular.js.<br/>
 The app is deployed on [Heroku](https://dashboard.heroku.com/) and can be accessed here: [https://calm-meadow-37274.herokuapp.com/](https://calm-meadow-37274.herokuapp.com/)
 
 ## Backend API
 
-* GET /company (Get all companies)
-
+* GET /company (Get all companies)<br/>
 ```
 curl -XGET https://calm-meadow-37274.herokuapp.com/company
 ```
-* POST /company (Create a company)
-
+* GET /company/:id (Get company's detail)<br/>
+```
+curl -XGET https://calm-meadow-37274.herokuapp.com/company/1
+```
+* POST /company (Create a company)<br/>
 ```
  curl -XPOST -d '{"name": "Company 1", "address": "Address 1", "city": "Toronto", "country":"Canada", "owners":[{"name": "Danial"}]}' https://calm-meadow-37274.herokuapp.com/company
 ```
-* PUT /company/:id (Update a company)
-
+* PUT /company/:id (Update a company) <br/>
 ```
  curl -XPUT -d '{"id": 1, "name": "Company 1", "address": "Address 1", "city": "Toronto", "country":"Canada", "owners":[{"name": "Danial"}]}' https://calm-meadow-37274.herokuapp.com/company/1
 ```
-* DELETE /company/:id (Delete a company)
-
+* DELETE /company/:id (Delete a company)<br/>
 ```
  curl -XDELETE https://calm-meadow-37274.herokuapp.com/company/1
 ```
-
-* POST /company/:id/owner (Add an owner to the company)
-
+* POST /company/:id/owner (Add an owner to the company)<br/>
 ```
  curl -XPOST -d '{"name": "Danial Farid"}' https://calm-meadow-37274.herokuapp.com/company/1/owner
 ```
-* DELETE /company/:id/owner/:ownerId (Remove a company's owner) 
-
+* DELETE /company/:id/owner/:ownerId (Remove a company's owner)<br/> 
 ```
  curl -XDELETE https://calm-meadow-37274.herokuapp.com/company/1/owner/1
 ```
