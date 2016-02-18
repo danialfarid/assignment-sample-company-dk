@@ -1,4 +1,4 @@
-$Assignment: Companies CRUD 
+#Assignment: Companies CRUD 
 
 A sample app for CRUD operations on companies and their owners. Backend is implemented using Java and front-end is implemented with Angular.js.
 The app is deployed on [Heroku](https://dashboard.heroku.com/) and can be accessed here: [https://calm-meadow-37274.herokuapp.com/](https://calm-meadow-37274.herokuapp.com/)
