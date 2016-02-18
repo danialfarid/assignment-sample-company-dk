@@ -35,7 +35,7 @@ public class Main {
         before((req, res) -> {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Request-Method", "*");
-            res.header("Access-Control-Allow-Headers", "*");
+            res.header("Access-Control-Allow-Headers", "Content-Type");
         });
 
         options("/*", (req, res) -> "OK");
