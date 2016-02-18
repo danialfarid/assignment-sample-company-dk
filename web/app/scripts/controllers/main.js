@@ -17,5 +17,12 @@ angular.module('webApp')
         $scope.companies.splice(index, 1, fullCompany);
         $scope.currentCompany = fullCompany;
       });
-    }
+    };
+
+    $scope.$watchCollection('currentCompany', function(v) {
+      if ($scope.currentCompany.$save) {
+        $scope.currentCompany.$save();
+      }
+      console.log(v);
+    });
   });

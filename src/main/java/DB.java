@@ -14,15 +14,18 @@ public class DB {
     private static final DB INSTANCE = new DB();
     EntityManagerFactory factory = Persistence.createEntityManagerFactory("persistence");
 
+    public Long updateCompany(Company company) {
+        return withTransaction(em -> {
+            em.merge(company);
+            company.getOwners().forEach(em::merge);
+            return company.getId();
+        });
+    }
+
     public Long createCompany(@Valid Company company) {
         return withTransaction(em -> {
-            try {
-                em.persist(company);
-                company.getOwners().forEach(em::persist);
-            } catch (Throwable t) {
-                LOG.throwing("", "", t);
-                LOG.info(t.getMessage());
-            }
+            em.persist(company);
+            company.getOwners().forEach(em::persist);
             return company.getId();
         });
     }
@@ -50,7 +53,7 @@ public class DB {
                 if (em.getTransaction().isActive()) {
                     try {
                         em.getTransaction().commit();
-                    }  catch (RollbackException e) {
+                    } catch (RollbackException e) {
                         if (e.getCause() != null && e.getCause() instanceof ConstraintViolationException) {
                             throw new IllegalArgumentException(e.getCause());
                         } else {

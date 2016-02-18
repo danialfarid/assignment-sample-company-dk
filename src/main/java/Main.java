@@ -46,6 +46,13 @@ public class Main {
             return new IdResponse(DB.get().createCompany(company));
         }, Main::toJson);
 
+        put("/company", (req, res) -> {
+            ObjectMapper mapper = new ObjectMapper();
+            Company company = mapper.readValue(req.body(), Company.class);
+            LOG.info("updating company: " + company);
+            return new IdResponse(DB.get().updateCompany(company));
+        }, Main::toJson);
+
         get("/company", (req, res) -> {
             return DB.get().listCompanies();
         }, Main::toJson);
