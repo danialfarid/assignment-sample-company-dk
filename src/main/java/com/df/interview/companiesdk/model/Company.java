@@ -1,5 +1,7 @@
 package com.df.interview.companiesdk.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -15,7 +17,8 @@ public class Company implements Serializable {
     @NotNull
     private String name;
 
-    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @NotEmpty
     private Collection<Owner> owners;
 

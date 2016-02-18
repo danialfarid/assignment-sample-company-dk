@@ -68,7 +68,7 @@ angular.module('webApp')
 
     $scope.removeOwner = function(company, owner, index) {
       if (owner.id) {
-        owner.delete(function () {
+        Owner.remove({companyId: company.id, ownerId: owner.id}, function () {
           company.owners.splice(index, 1);
         });
       } else {
