@@ -9,7 +9,7 @@
  */
 angular.module('webApp')
   .controller('MainCtrl', function ($scope, $resource) {
-    var Company = $resource('https://calm-meadow-37274.herokuapp.com/company/:companyId', {companyId:'@id'}, 'update': { method:'PUT' });
+    var Company = $resource('https://calm-meadow-37274.herokuapp.com/company/:companyId', {companyId:'@id'}, {'update': { method:'PUT' }});
     var Owner = $resource('https://calm-meadow-37274.herokuapp.com/company/:companyId/owner/:ownerId', {companyId:'@id', ownerId: '@id'});
     $scope.companies = Company.query();
     $scope.currentCompany = {};

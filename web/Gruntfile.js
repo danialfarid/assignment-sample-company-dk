@@ -404,6 +404,12 @@ module.exports = function (grunt) {
           src: ['generated/*']
         }]
       },
+      java: {
+        expand: true,
+        cwd: '<%= yeoman.app %>/styles',
+        dest: '<%= yeoman.dist %>/../../src/main/resources/public',
+        src: '<%= yeoman.dist %>/*'
+      },
       styles: {
         expand: true,
         cwd: '<%= yeoman.app %>/styles',
@@ -481,7 +487,8 @@ module.exports = function (grunt) {
     'uglify',
     'filerev',
     'usemin',
-    'htmlmin'
+    'htmlmin',
+    'copy:java'
   ]);
 
   grunt.registerTask('default', [

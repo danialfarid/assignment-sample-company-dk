@@ -33,7 +33,7 @@ public class Main {
         port(Integer.valueOf(System.getenv("PORT")));
         staticFileLocation("/public");
         before((req, res) -> {
-            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Origin", "GET POST PUT OPTIONS DELETE");
             res.header("Access-Control-Request-Method", "*");
             res.header("Access-Control-Allow-Headers", "Content-Type");
         });
