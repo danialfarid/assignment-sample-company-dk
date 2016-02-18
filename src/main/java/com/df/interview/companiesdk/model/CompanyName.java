@@ -1,3 +1,5 @@
+package com.df.interview.companiesdk.model;
+
 import java.io.Serializable;
 
 public class CompanyName implements Serializable {

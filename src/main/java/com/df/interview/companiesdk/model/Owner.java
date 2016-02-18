@@ -1,3 +1,5 @@
+package com.df.interview.companiesdk.model;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;

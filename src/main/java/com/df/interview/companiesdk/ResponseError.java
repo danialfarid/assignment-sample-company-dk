@@ -1,3 +1,5 @@
+package com.df.interview.companiesdk;
+
 public class ResponseError {
     private String message;
 

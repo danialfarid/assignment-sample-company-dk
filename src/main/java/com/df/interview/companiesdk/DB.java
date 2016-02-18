@@ -1,3 +1,9 @@
+package com.df.interview.companiesdk;
+
+import com.df.interview.companiesdk.model.Company;
+import com.df.interview.companiesdk.model.CompanyName;
+import com.df.interview.companiesdk.model.Owner;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

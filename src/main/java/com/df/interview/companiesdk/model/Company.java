@@ -1,3 +1,5 @@
+package com.df.interview.companiesdk.model;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
