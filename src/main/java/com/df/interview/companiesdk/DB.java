@@ -32,6 +32,7 @@ public class DB {
     public Long deleteCompany(Long companyId) {
         Company company = getCompany(companyId);
         return withinTransaction(em -> {
+            company.getOwners().forEach(em::remove);
             em.remove(company);
             return company.getId();
         });
