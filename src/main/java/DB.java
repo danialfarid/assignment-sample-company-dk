@@ -16,22 +16,18 @@ public class DB {
 
     public Long updateCompany(Company company) {
         return withTransaction(em -> {
+            company.getOwners().forEach(owner -> owner.setCompany(company));
             em.merge(company);
-            company.getOwners().forEach(owner -> {
-                owner.setCompany(company);
-                em.merge(company);
-            });
+            company.getOwners().forEach(em::merge);
             return company.getId();
         });
     }
 
     public Long createCompany(@Valid Company company) {
         return withTransaction(em -> {
+            company.getOwners().forEach(owner -> owner.setCompany(company));
             em.persist(company);
-            company.getOwners().forEach(owner -> {
-                owner.setCompany(company);
-                em.persist(company);
-            });
+            company.getOwners().forEach(em::persist);
             return company.getId();
         });
     }
